@@ -1,0 +1,373 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        @ViewData["Title"] - BusinessFlow
+    </title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- BusinessFlow Styles -->
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    @await RenderSectionAsync("Styles", required: false)
+
+</head>
+
+<body>
+
+    <div class="customer-sidebar-overlay"></div>
+
+    <div class="customer-portal">
+
+        <!-- =========================================
+             SIDEBAR
+             ========================================= -->
+
+        <aside class="customer-sidebar">
+
+            <button type="button" class="mobile-sidebar-close">
+                <i class="bi bi-x-lg"></i>
+            </button>
+
+            <!-- Brand -->
+
+            <div class="customer-brand">
+
+                <a asp-controller="CustomerDashboard"
+                   asp-action="Index">
+
+                    <span class="brand-mark">
+                        BF
+                    </span>
+
+                    <span class="brand-name">
+                        BusinessFlow
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- Navigation -->
+
+            <div class="customer-sidebar-section">
+
+                <span class="sidebar-section-title">
+                    MAIN MENU
+                </span>
+
+                <nav class="customer-nav">
+
+                    <a asp-controller="CustomerDashboard"
+                       asp-action="Index"
+                       class="customer-nav-link active">
+
+                        <i class="bi bi-grid-1x2-fill"></i>
+
+                        <span>
+                            Dashboard
+                        </span>
+
+                    </a>
+
+
+                    <a asp-controller="Order"
+                       asp-action="MyOrders"
+                       class="customer-nav-link">
+                        <i class="bi bi-bag-check"></i>
+                        <span>My Orders</span>
+                    </a>
+
+                    <a asp-controller="ServiceRequest"
+                       asp-action="MyRequests"
+                       class="customer-nav-link">
+                        <i class="bi bi-clipboard-check"></i>
+                        <span>My Requests</span>
+                    </a>
+
+
+                    <a asp-controller="CustomerServices"
+                       asp-action="Index"
+                       class="customer-nav-link">
+                        <i class="bi bi-layers"></i>
+                        <span>Services</span>
+                    </a>
+
+                    <a asp-controller="Invoice"
+                       asp-action="MyInvoices"
+                       class="customer-nav-link">
+
+                        <i class="bi bi-receipt"></i>
+
+                        <span>Invoices</span>
+
+                    </a>
+
+
+                    <a asp-controller="Payment"
+                       asp-action="MyPayments"
+                       class="customer-nav-link">
+                        <i class="bi bi-credit-card"></i>
+                        <span>Payments</span>
+                    </a>
+
+                </nav>
+
+            </div>
+
+
+
+            <!-- Account -->
+
+            <div class="customer-sidebar-section">
+
+                <span class="sidebar-section-title">
+                    ACCOUNT
+                </span>
+
+                <nav class="customer-nav">
+
+                    <a asp-controller="CustomerProfile"
+                       asp-action="Index"
+                       class="customer-nav-link">
+                        <i class="bi bi-person"></i>
+                        <span>My Profile</span>
+                    </a>
+
+
+                    <a href="#"
+                       class="customer-nav-link">
+
+                        <i class="bi bi-gear"></i>
+
+                        <span>
+                            Settings
+                        </span>
+
+                    </a>
+
+                </nav>
+
+            </div>
+
+
+            <!-- Sidebar Bottom -->
+
+            <div class="customer-sidebar-bottom">
+
+                <div class="sidebar-help">
+
+                    <div class="sidebar-help-icon">
+                        <i class="bi bi-headset"></i>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Need help?
+                        </strong>
+
+                        <span>
+                            Contact support
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <form asp-controller="Account"
+                      asp-action="Logout"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <button type="submit"
+                            class="customer-logout">
+
+                        <i class="bi bi-box-arrow-left"></i>
+
+                        <span>
+                            Logout
+                        </span>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================================
+             MAIN CONTENT
+             ========================================= -->
+
+        <main class="customer-main">
+
+
+            <!-- =====================================
+                 TOPBAR
+                 ===================================== -->
+
+            <header class="customer-topbar">
+
+                <!-- Mobile Menu -->
+
+                <button type="button"
+                        class="mobile-menu-button">
+
+                    <i class="bi bi-list"></i>
+
+                </button>
+
+
+                <!-- Search -->
+
+                <div class="customer-search">
+
+                    <i class="bi bi-search"></i>
+
+                    <input type="text"
+                           placeholder="Search anything..." />
+
+                    <span class="search-shortcut">
+                        /
+                    </span>
+
+                </div>
+
+
+                <!-- Topbar Actions -->
+
+                <div class="customer-topbar-actions">
+
+
+                    <!-- Notifications -->
+
+                    <button type="button"
+                            class="topbar-icon-button">
+
+                        <i class="bi bi-bell"></i>
+
+                        <span class="notification-dot"></span>
+
+                    </button>
+
+
+                    <!-- Divider -->
+
+                    <div class="topbar-divider"></div>
+
+
+                    <!-- User -->
+
+                    <div class="customer-user">
+
+                        <div class="customer-user-avatar">
+
+                            <span>
+                                @User.Identity?.Name?.Substring(0, 1).ToUpper()
+                            </span>
+
+                        </div>
+
+                        <div class="customer-user-info">
+
+                            <strong>
+                                @User.Identity?.Name
+                            </strong>
+
+                            <span>
+                                Customer
+                            </span>
+
+                        </div>
+
+                        <i class="bi bi-chevron-down customer-user-arrow"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- =====================================
+                 PAGE CONTENT
+                 ===================================== -->
+
+            <section class="customer-content">
+
+                @RenderBody()
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- Scripts -->
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const sidebar = document.querySelector(".customer-sidebar");
+            const menuButton = document.querySelector(".mobile-menu-button");
+            const closeButton = document.querySelector(".mobile-sidebar-close");
+            const overlay = document.querySelector(".customer-sidebar-overlay");
+
+            function openSidebar() {
+                sidebar.classList.add("mobile-open");
+                overlay.classList.add("mobile-visible");
+                document.body.style.overflow = "hidden";
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove("mobile-open");
+                overlay.classList.remove("mobile-visible");
+                document.body.style.overflow = "";
+            }
+
+            menuButton?.addEventListener("click", openSidebar);
+
+            closeButton?.addEventListener("click", closeSidebar);
+
+            overlay?.addEventListener("click", closeSidebar);
+
+            document.querySelectorAll(".customer-nav-link").forEach(function (link) {
+                link.addEventListener("click", function () {
+                    closeSidebar();
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Build files
+bin/
+obj/
+.vs/
+# Visual Studio
+*.user
+*.suo
+# Git
+.git/
+# Local configuration and secrets
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+# Logs
+*.log
+logs/
+# OS files
+.DS_Store
+Thumbs.db
+
+# Real application settings
+appsettings.json
+
+# Publishing profiles
+Properties/PublishProfiles/

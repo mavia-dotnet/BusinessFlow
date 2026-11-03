@@ -1,0 +1,100 @@
+﻿@model IEnumerable<BusinessManagementSystem.Models.ServiceRequest>
+
+@{
+    Layout = "~/Views/Shared/CustomerPortal/_CustomerLayout.cshtml";
+    ViewData["Title"] = "My Requests";
+}
+
+<div class="dashboard-page">
+
+    <div class="dashboard-header">
+        <div class="dashboard-header-content">
+            <span class="dashboard-eyebrow">CUSTOMER PORTAL</span>
+            <h1>My Service Requests</h1>
+            <p>Track the services you have requested.</p>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="profile-success-message">
+            <i class="bi bi-check-circle-fill"></i>
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    <div class="dashboard-panel">
+
+        @if (!Model.Any())
+        {
+            <div class="services-empty">
+                <div class="services-empty-icon">
+                    <i class="bi bi-clipboard"></i>
+                </div>
+
+                <h3>No service requests yet</h3>
+
+                <p>
+                    Your submitted service requests will appear here.
+                </p>
+
+                <a asp-controller="CustomerServices"
+                   asp-action="Index"
+                   class="dashboard-action">
+                    Browse Services
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+
+                <table class="table table-dark align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Details</th>
+                            <th>Status</th>
+                            <th>Requested</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var request in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <strong>
+                                        @request.Service?.Name
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    @request.RequestDetails
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-warning text-dark">
+                                        @request.Status
+                                    </span>
+                                </td>
+
+                                <td>
+                                    @request.CreatedAt
+                                    .ToString("dd MMM yyyy")
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+
+    </div>
+
+</div>

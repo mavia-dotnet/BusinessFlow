@@ -1,0 +1,90 @@
+﻿@model BusinessManagementSystem.Models.Customer
+
+@{
+    ViewData["Title"] = "Customer Details";
+}
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold">Customer Details</h1>
+            <p class="text-muted">
+                View complete customer information.
+            </p>
+        </div>
+
+        <div>
+            <a asp-action="Edit"
+               asp-route-id="@Model.CustomerId"
+               class="btn btn-primary">
+                Edit Customer
+            </a>
+
+            <a asp-action="Index"
+               class="btn btn-secondary">
+                Back
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+                    <small class="text-muted">Full Name</small>
+                    <h5 class="fw-semibold">
+                        @Model.FullName
+                    </h5>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <small class="text-muted">Email</small>
+                    <h5 class="fw-semibold">
+                        @(Model.Email ?? "Not provided")
+                    </h5>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <small class="text-muted">Phone</small>
+                    <h5 class="fw-semibold">
+                        @(Model.Phone ?? "Not provided")
+                    </h5>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <small class="text-muted">City</small>
+                    <h5 class="fw-semibold">
+                        @(Model.City ?? "Not provided")
+                    </h5>
+                </div>
+
+                <div class="col-md-12 mb-4">
+                    <small class="text-muted">Address</small>
+                    <h5 class="fw-semibold">
+                        @(Model.Address ?? "Not provided")
+                    </h5>
+                </div>
+
+                <div class="col-md-6">
+                    <small class="text-muted">Created At</small>
+                    <h5 class="fw-semibold">
+                        @Model.CreatedAt.ToLocalTime().ToString("dd MMM yyyy, hh:mm tt")
+                    </h5>
+                </div>
+
+                <div class="col-md-6">
+                    <small class="text-muted">Status</small>
+                    <h5 class="fw-semibold text-success">
+                        Active
+                    </h5>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

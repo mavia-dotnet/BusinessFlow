@@ -1,0 +1,19 @@
+﻿@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+
+    var managementControllers = new[]
+    {
+        "Dashboard",
+        "Customer",
+        "Product",
+        "Service",
+        "ServiceRequestManagement",
+        "Order",
+        "Invoice",
+        "Payment"
+    };
+
+    Layout = managementControllers.Contains(controller)
+        ? "~/Views/Shared/_ManagementLayout.cshtml"
+        : "~/Views/Shared/_Layout.cshtml";
+}

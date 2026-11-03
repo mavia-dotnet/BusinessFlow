@@ -1,0 +1,108 @@
+﻿@model IEnumerable<BusinessManagementSystem.Models.Service>
+
+@{
+    Layout = "~/Views/Shared/CustomerPortal/_CustomerLayout.cshtml";
+    ViewData["Title"] = "Services";
+}
+
+<div class="services-page">
+
+    <div class="dashboard-header">
+        <div class="dashboard-header-content">
+            <span class="dashboard-eyebrow">BUSINESSFLOW SERVICES</span>
+            <h1>Explore Our Services</h1>
+            <p>Choose a service that fits your business needs.</p>
+        </div>
+    </div>
+
+    <div class="services-toolbar">
+
+        <form asp-action="Index" method="get" class="services-search">
+            <i class="bi bi-search"></i>
+
+            <input type="text"
+                   name="search"
+                   value="@ViewBag.Search"
+                   placeholder="Search services..." />
+
+            <button type="submit">
+                Search
+            </button>
+        </form>
+
+        <span class="services-count">
+            @Model.Count() services available
+        </span>
+
+
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="dashboard-panel services-empty">
+            <div class="services-empty-icon">
+                <i class="bi bi-search"></i>
+            </div>
+
+            <h3>No services found</h3>
+
+            <p>
+                We couldn't find any services matching your search.
+            </p>
+
+            <a asp-action="Index" class="dashboard-action">
+                View All Services
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="services-grid">
+
+            @foreach (var service in Model)
+            {
+                <div class="service-card">
+
+                    <div class="service-card-top">
+                        <div class="service-icon">
+                            <i class="bi bi-layers"></i>
+                        </div>
+
+                        <span class="service-category">
+                            @(service.Category ?? "General")
+                        </span>
+                    </div>
+
+                    <h3>@service.Name</h3>
+
+                    <p>
+                        @(service.Description ??
+                                        "Professional business service.")
+            </p>
+
+                    <div class="service-card-bottom">
+
+                        <div>
+                            <span>Starting from</span>
+                            <strong>
+                                Rs @service.Price.ToString("N0")
+                            </strong>
+                        </div>
+
+                        <a asp-controller="ServiceRequest"
+                           asp-action="Create"
+                           asp-route-serviceId="@service.ServiceId"
+                           class="service-request-button">
+                            Request
+                            <i class="bi bi-arrow-up-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+                }
+
+        </div>
+    }
+
+</div>

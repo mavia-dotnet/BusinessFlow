@@ -1,0 +1,212 @@
+﻿@model BusinessManagementSystem.Models.ViewModels.CustomerProfileViewModel
+
+@{
+    Layout = "~/Views/Shared/CustomerPortal/_CustomerLayout.cshtml";
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="profile-page">
+
+    <div class="profile-page-header">
+        <div>
+            <span class="dashboard-eyebrow">ACCOUNT</span>
+            <h1>My Profile</h1>
+            <p>Manage your personal information and account details.</p>
+        </div>
+
+        <a asp-controller="CustomerDashboard"
+           asp-action="Index"
+           class="profile-back-link">
+            <i class="bi bi-arrow-left"></i>
+            Back to Dashboard
+        </a>
+    </div>
+
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="profile-success-message">
+            <i class="bi bi-check-circle-fill"></i>
+            <span>@TempData["SuccessMessage"]</span>
+        </div>
+    }
+
+
+    <div class="profile-layout">
+
+        <!-- Profile Summary -->
+        <div class="dashboard-panel profile-summary-panel">
+
+            <div class="profile-summary-top">
+
+                <div class="profile-large-avatar">
+                    @Model.FullName.Substring(0, 1).ToUpper()
+                </div>
+
+                <div>
+                    <h2>@Model.FullName</h2>
+                    <span class="profile-role">
+                        <i class="bi bi-person-check"></i>
+                        Customer
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="profile-summary-divider"></div>
+
+            <div class="profile-summary-item">
+                <span>Account Type</span>
+                <strong>Customer Account</strong>
+            </div>
+
+            <div class="profile-summary-item">
+                <span>Email</span>
+                <strong>@Model.Email</strong>
+            </div>
+
+            <div class="profile-summary-item">
+                <span>Account Status</span>
+                <strong class="profile-active-status">
+                    <span></span>
+                    Active
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- Profile Form -->
+        <div class="dashboard-panel profile-form-panel">
+
+            <div class="panel-header">
+                <div>
+                    <span class="panel-eyebrow">PERSONAL INFORMATION</span>
+                    <h3>Profile Details</h3>
+                    <p>Update the information associated with your account.</p>
+                </div>
+            </div>
+
+
+            <form asp-controller="CustomerProfile"
+                  asp-action="Index"
+                  method="post"
+                  class="profile-form">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="profile-validation"></div>
+
+
+                <div class="profile-form-grid">
+
+                    <div class="profile-field">
+                        <label asp-for="FullName"></label>
+
+                        <div class="profile-input-wrapper">
+                            <i class="bi bi-person"></i>
+
+                            <input asp-for="FullName"
+                                   class="profile-input"
+                                   placeholder="Enter your full name" />
+                        </div>
+
+                        <span asp-validation-for="FullName"
+                              class="profile-field-error"></span>
+                    </div>
+
+
+                    <div class="profile-field">
+                        <label asp-for="Email"></label>
+
+                        <div class="profile-input-wrapper">
+                            <i class="bi bi-envelope"></i>
+
+                            <input asp-for="Email"
+                                   class="profile-input"
+                                   placeholder="Enter your email" />
+                        </div>
+
+                        <span asp-validation-for="Email"
+                              class="profile-field-error"></span>
+                    </div>
+
+
+                    <div class="profile-field">
+                        <label asp-for="Phone"></label>
+
+                        <div class="profile-input-wrapper">
+                            <i class="bi bi-telephone"></i>
+
+                            <input asp-for="Phone"
+                                   class="profile-input"
+                                   placeholder="Enter your phone number" />
+                        </div>
+
+                        <span asp-validation-for="Phone"
+                              class="profile-field-error"></span>
+                    </div>
+
+
+                    <div class="profile-field">
+                        <label asp-for="City"></label>
+
+                        <div class="profile-input-wrapper">
+                            <i class="bi bi-geo-alt"></i>
+
+                            <input asp-for="City"
+                                   class="profile-input"
+                                   placeholder="Enter your city" />
+                        </div>
+
+                        <span asp-validation-for="City"
+                              class="profile-field-error"></span>
+                    </div>
+
+
+                    <div class="profile-field profile-field-full">
+                        <label asp-for="Address"></label>
+
+                        <div class="profile-input-wrapper profile-textarea-wrapper">
+                            <i class="bi bi-house"></i>
+
+                            <textarea asp-for="Address"
+                                      class="profile-input profile-textarea"
+                                      rows="4"
+                                      placeholder="Enter your complete address"></textarea>
+                        </div>
+
+                        <span asp-validation-for="Address"
+                              class="profile-field-error"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="profile-form-footer">
+
+                    <span>
+                        <i class="bi bi-shield-check"></i>
+                        Your information is securely stored.
+                    </span>
+
+                    <button type="submit"
+                            class="profile-save-button">
+                        <i class="bi bi-check2"></i>
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

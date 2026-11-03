@@ -1,0 +1,317 @@
+﻿@model BusinessManagementSystem.Models.Customer
+
+@{
+    Layout = "~/Views/Shared/CustomerPortal/_CustomerLayout.cshtml";
+    ViewData["Title"] = "Customer Dashboard";
+}
+
+<div class="dashboard-page">
+
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="dashboard-header-content">
+            <span class="dashboard-eyebrow">CUSTOMER PORTAL</span>
+
+            <h1>
+                Welcome back, @Model.FullName
+                <i class="bi bi-hand-wave"></i>
+            </h1>
+
+            <p>
+                Here's an overview of your BusinessFlow activity.
+            </p>
+        </div>
+
+        <div class="dashboard-date">
+            <i class="bi bi-calendar3"></i>
+            <div>
+                <span>Today</span>
+                <strong>@DateTime.Now.ToString("dd MMM yyyy")</strong>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- KPI Cards -->
+    <div class="dashboard-stats">
+
+        <div class="dashboard-stat-card">
+            <div class="stat-card-top">
+                <div class="stat-icon">
+                    <i class="bi bi-bag-check"></i>
+                </div>
+
+                <span class="stat-status neutral">
+                    <i class="bi bi-dash"></i>
+                    0%
+                </span>
+            </div>
+
+            <div class="stat-content">
+                <span>Total Orders</span>
+                <h2>0</h2>
+                <small>No orders yet</small>
+            </div>
+        </div>
+
+
+        <div class="dashboard-stat-card">
+            <div class="stat-card-top">
+                <div class="stat-icon">
+                    <i class="bi bi-layers"></i>
+                </div>
+
+                <span class="stat-status neutral">
+                    <i class="bi bi-dash"></i>
+                    0%
+                </span>
+            </div>
+
+            <div class="stat-content">
+                <span>Service Requests</span>
+                <h2>0</h2>
+                <small>No active requests</small>
+            </div>
+        </div>
+
+
+        <div class="dashboard-stat-card">
+            <div class="stat-card-top">
+                <div class="stat-icon">
+                    <i class="bi bi-receipt"></i>
+                </div>
+
+                <span class="stat-status neutral">
+                    <i class="bi bi-dash"></i>
+                    0%
+                </span>
+            </div>
+
+            <div class="stat-content">
+                <span>Pending Invoices</span>
+                <h2>0</h2>
+                <small>Everything is clear</small>
+            </div>
+        </div>
+
+
+        <div class="dashboard-stat-card">
+            <div class="stat-card-top">
+                <div class="stat-icon">
+                    <i class="bi bi-wallet2"></i>
+                </div>
+
+                <span class="stat-status neutral">
+                    <i class="bi bi-dash"></i>
+                    0%
+                </span>
+            </div>
+
+            <div class="stat-content">
+                <span>Total Spent</span>
+                <h2>Rs 0</h2>
+                <small>No transactions yet</small>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Main Dashboard Grid -->
+    <div class="dashboard-main-grid">
+
+        <!-- Activity / Analytics Panel -->
+        <div class="dashboard-panel dashboard-analytics-panel">
+
+            <div class="panel-header">
+                <div>
+                    <span class="panel-eyebrow">ACTIVITY OVERVIEW</span>
+                    <h3>Business Activity</h3>
+                    <p>
+                        Your orders and service activity will appear here.
+                    </p>
+                </div>
+
+                <button type="button" class="panel-filter">
+                    <span>Last 30 days</span>
+                    <i class="bi bi-chevron-down"></i>
+                </button>
+            </div>
+
+
+            <div class="analytics-placeholder">
+
+                <div class="analytics-grid-lines">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="analytics-empty-content">
+                    <div class="analytics-icon">
+                        <i class="bi bi-bar-chart-line"></i>
+                    </div>
+
+                    <h4>No activity data yet</h4>
+
+                    <p>
+                        Your activity chart will be populated
+                        once you place an order or request a service.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Quick Actions -->
+        <div class="dashboard-panel quick-actions-panel">
+
+            <div class="panel-header">
+                <div>
+                    <span class="panel-eyebrow">SHORTCUTS</span>
+                    <h3>Quick Actions</h3>
+                    <p>Frequently used actions.</p>
+                </div>
+            </div>
+
+
+            <div class="quick-actions">
+
+                <a href="#" class="quick-action">
+                    <span class="quick-action-icon">
+                        <i class="bi bi-clipboard-plus"></i>
+                    </span>
+
+                    <span class="quick-action-content">
+                        <strong>Request a Service</strong>
+                        <small>Tell us what you need</small>
+                    </span>
+
+                    <i class="bi bi-arrow-up-right quick-action-arrow"></i>
+                </a>
+
+
+                <a href="#" class="quick-action">
+                    <span class="quick-action-icon">
+                        <i class="bi bi-grid"></i>
+                    </span>
+
+                    <span class="quick-action-content">
+                        <strong>Browse Services</strong>
+                        <small>Explore available services</small>
+                    </span>
+
+                    <i class="bi bi-arrow-up-right quick-action-arrow"></i>
+                </a>
+
+
+                <a href="#" class="quick-action">
+                    <span class="quick-action-icon">
+                        <i class="bi bi-receipt"></i>
+                    </span>
+
+                    <span class="quick-action-content">
+                        <strong>View Invoices</strong>
+                        <small>Check your invoices</small>
+                    </span>
+
+                    <i class="bi bi-arrow-up-right quick-action-arrow"></i>
+                </a>
+
+
+                <a href="#" class="quick-action">
+                    <span class="quick-action-icon">
+                        <i class="bi bi-person"></i>
+                    </span>
+
+                    <span class="quick-action-content">
+                        <strong>My Profile</strong>
+                        <small>Manage your information</small>
+                    </span>
+
+                    <i class="bi bi-arrow-up-right quick-action-arrow"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Recent Orders -->
+    <div class="dashboard-panel recent-orders-panel">
+
+        <div class="panel-header">
+            <div>
+                <span class="panel-eyebrow">ORDERS</span>
+                <h3>Recent Orders</h3>
+                <p>Your latest orders and their status.</p>
+            </div>
+
+            <a href="#" class="panel-link">
+                View All
+                <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+
+
+        <div class="orders-empty-state">
+
+            <div class="orders-empty-icon">
+                <i class="bi bi-box-seam"></i>
+            </div>
+
+            <div>
+                <h4>No orders yet</h4>
+
+                <p>
+                    Your recent orders will appear here
+                    once you place an order.
+                </p>
+
+                <a href="#" class="dashboard-action">
+                    <i class="bi bi-grid"></i>
+                    Explore Services
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Recent Activity -->
+    <div class="dashboard-panel activity-panel">
+
+        <div class="panel-header">
+            <div>
+                <span class="panel-eyebrow">TIMELINE</span>
+                <h3>Recent Activity</h3>
+                <p>Updates related to your account.</p>
+            </div>
+        </div>
+
+
+        <div class="activity-empty">
+
+            <div class="activity-empty-icon">
+                <i class="bi bi-clock-history"></i>
+            </div>
+
+            <div>
+                <h4>No recent activity</h4>
+
+                <p>
+                    Your account activity will appear here.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

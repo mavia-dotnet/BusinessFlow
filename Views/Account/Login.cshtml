@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm border-0 p-4">
+                <h2 class="mb-2">Welcome Back</h2>
+                <p class="text-muted mb-4">
+                    Login to your BusinessFlow account.
+                </p>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger">
+                        @ViewBag.Error
+                    </div>
+                }
+
+                <form asp-controller="Account"
+                      asp-action="Login"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input name="email"
+                               type="email"
+                               class="form-control"
+                               placeholder="Enter your email"
+                               autocomplete="username"
+                               required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+
+                        <div class="input-group">
+                            <input id="loginPassword"
+                                   name="password"
+                                   type="password"
+                                   class="form-control"
+                                   autocomplete="current-password"
+                                   required />
+
+                            <button class="btn btn-outline-secondary"
+                                    type="button"
+                                    onclick="togglePassword('loginPassword', 'loginEye')"
+                                    aria-label="Show password">
+                                <i id="loginEye" class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-primary w-100">
+                        Login
+                    </button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <span class="text-muted">Don't have an account?</span>
+                    <a asp-controller="Account"
+                       asp-action="Register"
+                       class="text-decoration-none">
+                        Create Account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePassword(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.replace("bi-eye", "bi-eye-slash");
+        } else {
+            input.type = "password";
+            icon.classList.replace("bi-eye-slash", "bi-eye");
+        }
+    }
+</script>

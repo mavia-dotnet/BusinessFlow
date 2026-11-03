@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - BusinessFlow</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BusinessManagementSystem.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+            <div class="container">
+
+                <a class="navbar-brand fw-bold"
+                   asp-controller="Home"
+                   asp-action="Index">
+                    Business<span class="brand-highlight">Flow</span>
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-controller="Home"
+                               asp-action="Index">
+                                Home
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#features">
+                                Features
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#how-it-works">
+                                How It Works
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#about">
+                                About
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            @if (User.IsInRole("Customer"))
+                            {
+                                <a asp-controller="CustomerDashboard"
+                                   asp-action="Index"
+                                   class="btn btn-outline-primary">
+                                    My Dashboard
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Dashboard"
+                                   asp-action="Index"
+                                   class="btn btn-outline-primary">
+                                    Dashboard
+                                </a>
+                            }
+
+                            <span class="navbar-text me-2">
+                                Hello, @User.Identity.Name
+                            </span>
+
+                            <form asp-controller="Account"
+                                  asp-action="Logout"
+                                  method="post"
+                                  class="d-inline">
+                                <button type="submit"
+                                        class="btn btn-outline-danger">
+                                    Logout
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account"
+                               asp-action="Login"
+                               class="btn btn-outline-primary">
+                                Login
+                            </a>
+
+                            <a asp-controller="Account"
+                               asp-action="Register"
+                               class="btn btn-primary px-4">
+                                Get Started
+                            </a>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Main Content -->
+    <main>
+        @RenderBody()
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="business-footer">
+        <div class="container">
+
+            <div class="row gy-4">
+
+                <div class="col-lg-5">
+
+                    <h5 class="fw-bold">
+                        Business<span class="brand-highlight">Flow</span>
+                    </h5>
+
+                    <p class="text-muted mt-3">
+                        A modern business management platform designed
+                        to help businesses manage customers, products,
+                        orders, payments and daily operations efficiently.
+                    </p>
+
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+
+                    <h6 class="fw-bold">Product</h6>
+
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="/#features">Features</a></li>
+                        <li><a href="/#how-it-works">How It Works</a></li>
+                        <li>
+                            <a asp-controller="Account"
+                               asp-action="Register">
+                                Get Started
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+
+                    <h6 class="fw-bold">Business</h6>
+
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="/#about">About</a></li>
+                        <li><a href="/#contact">Contact</a></li>
+                        <li><a href="/#support">Support</a></li>
+                    </ul>
+
+                </div>
+
+                <div class="col-lg-3 col-md-4">
+
+                    <h6 class="fw-bold">Management</h6>
+
+                    <p class="text-muted small">
+                        Manage your business operations from one
+                        centralized platform.
+                    </p>
+
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        @if (User.IsInRole("Customer"))
+                        {
+                            <a asp-controller="CustomerDashboard"
+                               asp-action="Index"
+                               class="btn btn-sm btn-outline-primary">
+                                Open Dashboard
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Dashboard"
+                               asp-action="Index"
+                               class="btn btn-sm btn-outline-primary">
+                                Open Dashboard
+                            </a>
+                        }
+                    }
+                    else
+                    {
+                        <a asp-controller="Account"
+                           asp-action="Login"
+                           class="btn btn-sm btn-outline-primary">
+                            Sign In
+                        </a>
+                    }
+
+                </div>
+
+            </div>
+
+            <hr class="my-4" />
+
+            <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
+
+                <span class="text-muted small">
+                    © 2026 BusinessFlow. All rights reserved.
+                </span>
+
+                <a class="text-muted small"
+                   asp-controller="Home"
+                   asp-action="Privacy">
+                    Privacy Policy
+                </a>
+
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<BusinessManagementSystem.Models.Order>
+
+@{
+    Layout = "~/Views/Shared/CustomerPortal/_CustomerLayout.cshtml";
+    ViewData["Title"] = "My Orders";
+}
+
+<div class="dashboard-page">
+
+    <div class="dashboard-header">
+        <div class="dashboard-header-content">
+            <span class="dashboard-eyebrow">CUSTOMER PORTAL</span>
+            <h1>My Orders</h1>
+            <p>Track your orders and their current status.</p>
+        </div>
+    </div>
+
+    <div class="dashboard-panel">
+
+        @if (!Model.Any())
+        {
+            <div class="services-empty">
+                <div class="services-empty-icon">
+                    <i class="bi bi-bag"></i>
+                </div>
+
+                <h3>No orders yet</h3>
+
+                <p>
+                    Your orders will appear here.
+                </p>
+
+                <a asp-controller="CustomerServices"
+                   asp-action="Index"
+                   class="dashboard-action">
+                    Browse Services
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+
+                <table class="table table-dark align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <strong>
+                                        #@order.OrderId
+                                    </strong>
+                                </td>
+
+                                <td>
+                                    @foreach (var item in order.OrderItems)
+                                    {
+                                        <div>
+                                            @(item.Service?.Name
+                                                                            ?? item.Product?.Name)
+                                × @item.Quantity
+                            </div>
+                                                        }
+                                </td>
+
+                                <td>
+                                    Rs @order.TotalAmount.ToString("N2")
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-primary">
+                                        @order.Status
+                                    </span>
+                                </td>
+
+                                <td>
+                                    @order.OrderDate
+                                    .ToString("dd MMM yyyy")
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+
+    </div>
+
+</div>

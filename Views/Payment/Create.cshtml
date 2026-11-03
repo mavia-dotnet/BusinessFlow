@@ -1,0 +1,83 @@
+﻿@model BusinessManagementSystem.Models.Payment
+
+@{
+    ViewData["Title"] = "Record Payment";
+    var invoice = (BusinessManagementSystem.Models.Invoice)ViewBag.Invoice;
+    decimal paid = (decimal)ViewBag.PaidAmount;
+    decimal balance = (decimal)ViewBag.Balance;
+}
+
+<div class="container py-4">
+    <div class="mb-4">
+        <span class="text-uppercase text-primary small fw-semibold">BusinessFlow Finance</span>
+        <h2 class="fw-bold">Record Payment</h2>
+        <p class="text-muted">Record a payment received against an invoice.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <div class="text-muted small">Invoice Number</div>
+                    <h5>@invoice.InvoiceNumber</h5>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-muted small">Customer</div>
+                    <h5>@invoice.Customer?.FullName</h5>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted small">Invoice Total</div>
+                    <h5>Rs. @invoice.TotalAmount.ToString("N2")</h5>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted small">Already Paid</div>
+                    <h5>Rs. @paid.ToString("N2")</h5>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-muted small">Remaining Balance</div>
+                    <h5 class="text-primary">Rs. @balance.ToString("N2")</h5>
+                </div>
+            </div>
+
+            <hr />
+
+            <form asp-controller="Payment" asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="invoiceId" value="@Model.InvoiceId" />
+
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label for="amount" class="form-label">Payment Amount (Rs.)</label>
+                    <input id="amount" name="amount" type="number"
+                           class="form-control" step="0.01" min="0.01"
+                           max="@balance" value="@Model.Amount" required />
+                    <small class="text-muted">Maximum allowed: Rs. @balance.ToString("N2")</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="paymentMethod" class="form-label">Payment Method</label>
+                    <select id="paymentMethod" name="paymentMethod" class="form-select" required>
+                        <option value="Cash" selected="@(Model.PaymentMethod == "Cash")">Cash</option>
+                        <option value="Bank Transfer" selected="@(Model.PaymentMethod == "Bank Transfer")">Bank Transfer</option>
+                        <option value="Card" selected="@(Model.PaymentMethod == "Card")">Card</option>
+                        <option value="Online" selected="@(Model.PaymentMethod == "Online")">Online</option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label for="notes" class="form-label">Notes (optional)</label>
+                    <textarea id="notes" name="notes" class="form-control"
+                              rows="3" maxlength="500">@Model.Notes</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle"></i> Record Payment
+                </button>
+
+                <a asp-controller="Invoice" asp-action="Index"
+                   class="btn btn-outline-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿@{
+    var service = ViewBag.Service as BusinessManagementSystem.Models.Service;
+
+    Layout = "~/Views/Shared/CustomerPortal/_CustomerLayout.cshtml";
+    ViewData["Title"] = "Request Service";
+}
+
+<div class="dashboard-page">
+
+    <div class="dashboard-header">
+        <div class="dashboard-header-content">
+            <span class="dashboard-eyebrow">SERVICE REQUEST</span>
+            <h1>Request a Service</h1>
+            <p>Tell us what you need and our team will review your request.</p>
+        </div>
+
+        <a asp-controller="CustomerServices"
+           asp-action="Index"
+           class="profile-back-link">
+            <i class="bi bi-arrow-left"></i>
+            Back to Services
+        </a>
+    </div>
+
+    <div class="dashboard-panel">
+
+        <div class="panel-header">
+            <div>
+                <span class="panel-eyebrow">SELECTED SERVICE</span>
+                <h3>@service?.Name</h3>
+                <p>@service?.Description</p>
+            </div>
+
+            <strong>
+                Rs @service?.Price.ToString("N0")
+            </strong>
+        </div>
+
+        <form asp-action="Create" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden"
+                   name="serviceId"
+                   value="@service?.ServiceId" />
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    What do you need?
+                </label>
+
+                <textarea name="requestDetails"
+                          class="form-control"
+                          rows="6"
+                          placeholder="Describe your requirements..."></textarea>
+
+                @Html.ValidationMessage(
+                "RequestDetails",
+                                new { @class = "text-danger" })
+
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary">
+                <i class="bi bi-send"></i>
+                Submit Request
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
